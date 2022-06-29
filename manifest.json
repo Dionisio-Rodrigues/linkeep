@@ -1,0 +1,15 @@
+{
+    "name": "LinKeep",
+    "description": "Keep and manage your's favorites links with a simple command. Have a easy acess in other devices!",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "scriptd.js",
+        "type": "module"
+    },
+    "action": {
+        "default_title": "Keep",
+        "default_popup": "index.html",
+        "default_icon": ""
+    } 
+}
