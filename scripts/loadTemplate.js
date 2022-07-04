@@ -1,5 +1,5 @@
 let template = document.getElementsByTagName("body");
-template[0].innerHTML = changeTab(template[0].getAttribute("content"));
+template[0].innerHTML += changeTab(template[0].getAttribute("content"));
 
 function changeTab(valueAttribute){
     var htmlCode;

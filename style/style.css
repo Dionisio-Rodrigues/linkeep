@@ -7,3 +7,18 @@ body{
     width: 750px;
     height: 500px;
 }
+
+.nav{
+    background-color:white;
+    z-index: 1000;
+}
+
+#img-background{
+    position: absolute;
+    z-index: -1000;
+    opacity: 0.3;
+    width: 550px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -46%);
+}
