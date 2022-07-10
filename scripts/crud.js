@@ -12,19 +12,27 @@ export function saveTab(tab){
         type = "update"
     }
 
-    chrome.storage.sync.set({"LINKEEP_STORAGE": tabList}, ()=>{
-        console.log(type+" successfully");
-    });
+    chrome.storage.sync.set({"LINKEEP_STORAGE": tabList}, ()=> console.log(type+" successfully") );
 }
 
-function deleteTab(){
+export function deleteTab(tab){
+    let tabList = []
 
-}
-
-function readTab(){
-
-}
-
-function update(){
+    tab = JSON.stringify(tab);
     
+    chrome.storage.sync.get("LINKEEP_STORAGE", (list) => tabList = list.slice)
+
+    let index  = tabList.findIndex((item, index, array) => item == tab)
+
+    tabList.splice(index, 1)
+
+    chrome.storage.sync.set({"LINKEEP_STORAGE": tabList}, () => console.log("delete successfully") );
 }
+
+// function readTab(){
+
+// }
+
+// function updateTab(){
+    
+// }
