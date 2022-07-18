@@ -130,10 +130,7 @@ function changeTab(valueAttribute){
         '</li>'+
         '</ul>';
     }
-
-    console.log(valueAttribute)
-    console.log(htmlCode)
-
+    
     return htmlCode;
 }
 
