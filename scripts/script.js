@@ -2,34 +2,44 @@
 var inputName = document.getElementById("inputName");
 var inputLink = document.getElementById("inputLink");
 var bttnSave = document.getElementById("saveBttn");
+var listLinks = document.getElementById("")
 
 bttnSave.addEventListener("click", saveTab)
 
-chrome.storage.sync.get(["LINKEEP_STORAGE"], (listJSON) => console.log(JSON.parse(listJSON.LINKEEP_STORAGE)));
-
-function saveTab() {
+async function saveTab() {
     let tabList = new Array();
     let type = "??????????"
-
     let tab = {
         name: inputName.value,
         url: inputLink.value
     }
 
-    chrome.storage.sync.get(["LINKEEP_STORAGE"]).then(listJSON => {
-        tabList = JSON.parse(listJSON.LINKEEP_STORAGE).slice()
-
-        if (tabList.every((item, index, array) => JSON.parse(item).url != tab.url)) {
-            tabList.push(JSON.stringify(tab));
-            type = "save"
-        } else {
-            tabList[tabList.findIndex((item, index, array) => JSON.parse(item).url == tab.url)] = JSON.stringify(tab);
-            type = "update"
-        }
-
-        chrome.storage.sync.set({ "LINKEEP_STORAGE": JSON.stringify(tabList) }, () => console.log(type + " successfully"));
-
+    await chrome.storage.sync.get(["LINKEEP_STORAGE"]).then(listJSON => {
+        listJSON.LINKEEP_STORAGE != undefined ? tabList = JSON.parse(listJSON.LINKEEP_STORAGE).slice(): console.log(undefined);
     }).catch(error => console.log(error))
+
+
+    if (tabList.every((item, index, array) => item.url != tab.url)) {
+        tabList.push(tab);
+        type = "save"
+    } else {
+        tabList[tabList.findIndex((item, index, array) => item.url == tab.url)] = tab;
+        type = "update"
+    }
+
+    chrome.storage.sync.set({ "LINKEEP_STORAGE": JSON.stringify(tabList) }, () => console.log(type + " successfully"));
+}
+
+async function deleteTab(tab){
+    let tabList = new Array()
+    
+    await chrome.storage.sync.get("LINKEEP_STORAGE")
+    .then(listJSON => tabList = JSON.parse(listJSON.LINKEEP_STORAGE).slice())
+    .catch(error => console.log(error))
+
+    let index  = tabList.findIndex((item, index, array) => item == tab)
+    tabList.splice(index, 1)
+    chrome.storage.sync.set({"LINKEEP_STORAGE": tabList}, () => console.log("delete successfully") );
 }
 
 window.onload = () => {

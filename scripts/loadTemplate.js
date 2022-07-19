@@ -3,13 +3,13 @@ template[0].innerHTML += changeTab(template[0].getAttribute("content"));
 
 function changeTab(valueAttribute){
     var htmlCode;
-    if(valueAttribute == "home"){
+    if(valueAttribute == "add"){
         htmlCode = '<ul class="nav nav-tabs">'+
         '<li class="nav-item">'+
-            '<a class="nav-link active" aria-current="page" href="../index.html">Home</a>'+
+            '<a class="nav-link active" aria-current="page" href="../index.html">Add</a>'+
         '</li>'+
         '<li class="nav-item">'+
-            '<a class="nav-link" href="../html/add.html">Add</a>'+
+            '<a class="nav-link" href="../html/add.html">Home</a>'+
         '</li>'+
         '<li class="nav-item">'+
             '<a class="nav-link" href="../html/favorites.html">Favorites</a>'+
@@ -24,13 +24,13 @@ function changeTab(valueAttribute){
         '<a class="nav-link" href="../html/donate.html">Coffee</a>'+
         '</li>'+
         '</ul>';
-    }else if(valueAttribute == "add"){
+    }else if(valueAttribute == "home"){
         htmlCode = '<ul class="nav nav-tabs">'+
         '<li class="nav-item">'+
-            '<a class="nav-link" href="../index.html">Home</a>'+
+            '<a class="nav-link" href="../index.html">Add</a>'+
         '</li>'+
         '<li class="nav-item">'+
-            '<a <a class="nav-link active" aria-current="page" href="../html/add.html">Add</a>'+
+            '<a <a class="nav-link active" aria-current="page" href="../html/add.html">Home</a>'+
         '</li>'+
         '<li class="nav-item">'+
             '<a class="nav-link" href="../html/favorites.html">Favorites</a>'+
@@ -48,10 +48,10 @@ function changeTab(valueAttribute){
     }else if(valueAttribute == "favorites"){
         htmlCode = '<ul class="nav nav-tabs">'+
         '<li class="nav-item">'+
-            '<a class="nav-link" href="../index.html">Home</a>'+
+            '<a class="nav-link" href="../index.html">Add</a>'+
         '</li>'+
         '<li class="nav-item">'+
-            '<a class="nav-link" href="../html/add.html">Add</a>'+
+            '<a class="nav-link" href="../html/add.html">Home</a>'+
         '</li>'+
         '<li class="nav-item">'+
             '<a class="nav-link active" aria-current="page" href="../html/favorites.html">Favorites</a>'+
@@ -69,10 +69,10 @@ function changeTab(valueAttribute){
     }else if(valueAttribute == "mylinks"){
         htmlCode = '<ul class="nav nav-tabs">'+
         '<li class="nav-item">'+
-            '<a class="nav-link" href="../index.html">Home</a>'+
+            '<a class="nav-link" href="../index.html">Add</a>'+
         '</li>'+
         '<li class="nav-item">'+
-            '<a class="nav-link" href="../html/add.html">Add</a>'+
+            '<a class="nav-link" href="../html/add.html">Home</a>'+
         '</li>'+
         '<li class="nav-item">'+
             '<a class="nav-link" href="../html/favorites.html">Favorites</a>'+
@@ -90,10 +90,10 @@ function changeTab(valueAttribute){
     }else if(valueAttribute == "settings"){
         htmlCode = '<ul class="nav nav-tabs">'+
         '<li class="nav-item">'+
-            '<a class="nav-link" href="../index.html">Home</a>'+
+            '<a class="nav-link" href="../index.html">Add</a>'+
         '</li>'+
         '<li class="nav-item">'+
-            '<a class="nav-link" href="../html/add.html">Add</a>'+
+            '<a class="nav-link" href="../html/add.html">Home</a>'+
         '</li>'+
         '<li class="nav-item">'+
             '<a class="nav-link" href="../html/favorites.html">Favorites</a>'+
@@ -111,10 +111,10 @@ function changeTab(valueAttribute){
     }else if(valueAttribute == "donate"){
         htmlCode = '<ul class="nav nav-tabs">'+
         '<li class="nav-item">'+
-            '<a class="nav-link" href="../index.html">Home</a>'+
+            '<a class="nav-link" href="../index.html">Add</a>'+
         '</li>'+
         '<li class="nav-item">'+
-            '<a class="nav-link" href="../html/add.html">Add</a>'+
+            '<a class="nav-link" href="../html/add.html">Home</a>'+
         '</li>'+
         '<li class="nav-item">'+
             '<a class="nav-link" href="../html/favorites.html">Favorites</a>'+
@@ -130,7 +130,7 @@ function changeTab(valueAttribute){
         '</li>'+
         '</ul>';
     }
-    
+
     return htmlCode;
 }
 
