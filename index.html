@@ -13,26 +13,100 @@
     <title>LinKeep</title>
 </head>
 
-<body content="add">
+<body>
 
-    </body>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="add-tab" data-bs-toggle="tab" data-bs-target="#add-tab-pane"
+                type="button" role="tab" aria-controls="add-tab-pane" aria-selected="true">Add</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="favorites-tab" data-bs-toggle="tab" data-bs-target="#favorites-tab-pane"
+                type="button" role="tab" aria-controls="favorites-tab-pane" aria-selected="false">Favorites</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="my-links-tab" data-bs-toggle="tab" data-bs-target="#my-links-tab-pane"
+                type="button" role="tab" aria-controls="my-links-tab-pane" aria-selected="false">My Links</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="help-tab" data-bs-toggle="tab" data-bs-target="#help-tab-pane"
+                type="button" role="tab" aria-controls="help-tab-pane" aria-selected="false">Help</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings-tab-pane"
+                type="button" role="tab" aria-controls="settings-tab-pane" aria-selected="false">Settings</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="coffe-tab" data-bs-toggle="tab" data-bs-target="#coffe-tab-pane"
+                type="button" role="tab" aria-controls="coffe-tab-pane" aria-selected="false">Coffe</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
 
-    <script src="scripts/loadTemplate.js"></script>
+        <!-- TELA DE ADD -->
 
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Tab Name</label>
-        <input type="text" class="form-control" id="inputName" aria-describedby="emailHelp">
+        <div class="tab-pane fade show active" id="add-tab-pane" role="tabpanel" aria-labelledby="add-tab"
+            tabindex="0">
+
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Name</label>
+                <input type="text" class="form-control" id="input-name" >
+                <button class="btn btn-primary mb-3" id="bttn-save">Save</button>
+            </div>
+
+
+        </div>
+
+        <!-- TELA DE ADD -->
+
+        <!-- TELA DE FAVORITOS -->
+
+        <div class="tab-pane fade" id="favorites-tab-pane" role="tabpanel" aria-labelledby="favorites-tab" tabindex="0">
+            ...
+        </div>
+
+        <!-- TELA DE FAVORITOS -->
+
+        <!-- TELA DE MEUS LINKS -->
+
+        <div class="tab-pane fade" id="my-links-tab-pane" role="tabpanel" aria-labelledby="my-links-tab" tabindex="0">
+            ...
+        </div>
+
+        <!-- TELA DE MEUS LINKS -->
+
+        <!-- TELA DE AJUDA -->
+
+        <div class="tab-pane fade" id="help-tab-pane" role="tabpanel" aria-labelledby="help-tab" tabindex="0">
+            ...
+        </div>
+
+        <!-- TELA DE AJUDA -->
+
+        <!-- TELA DE CONFIGURAÇÕES -->
+
+        <div class="tab-pane fade" id="settings-tab-pane" role="tabpanel" aria-labelledby="settings-tab" tabindex="0">
+            ...
+        </div>
+
+        <!-- TELA DE CONFIGURAÇÕES -->
+
+        <!-- TELA DE DOAÇÃO -->
+
+        <div class="tab-pane fade" id="coffe-tab-pane" role="tabpanel" aria-labelledby="coffe-tab" tabindex="0">
+            ...
+        </div>
+
+        <!-- TELA DE DOAÇÃO -->
+
     </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Tab link</label>
-        <input type="text" class="form-control" id="inputLink">
-    </div>
-    <button id="saveBttn" type="submit" class="btn btn-primary">Submit</button>
 
-<script src="bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-    crossorigin="anonymous"></script>
+    <script src="bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
 
-<script src="scripts/script.js"></script>
+    <script src="scripts/script.js"></script>
+</body>
 
 </html>

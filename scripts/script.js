@@ -1,8 +1,8 @@
 
-var inputName = document.getElementById("inputName");
-var inputLink = document.getElementById("inputLink");
-var bttnSave = document.getElementById("saveBttn");
-var listLinks = document.getElementById("")
+var inputName = document.getElementById("input-name");
+// var inputLink = document.getElementById("input-link");
+var bttnSave = document.getElementById("bttn-save");
+var urlTab = ""
 
 bttnSave.addEventListener("click", saveTab)
 
@@ -11,7 +11,7 @@ async function saveTab() {
     let type = "??????????"
     let tab = {
         name: inputName.value,
-        url: inputLink.value
+        url: urlTab
     }
 
     await chrome.storage.sync.get(["LINKEEP_STORAGE"]).then(listJSON => {
@@ -26,6 +26,8 @@ async function saveTab() {
         tabList[tabList.findIndex((item, index, array) => item.url == tab.url)] = tab;
         type = "update"
     }
+
+    console.log(tabList)
 
     chrome.storage.sync.set({ "LINKEEP_STORAGE": JSON.stringify(tabList) }, () => console.log(type + " successfully"));
 }
@@ -46,6 +48,6 @@ window.onload = () => {
 
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
         inputName.value = tabs[0].title;
-        inputLink.value = tabs[0].url;
+        urlTab = tabs[0].url;
     })
 }
