@@ -19,6 +19,10 @@ a:hover{
     color: black;
 }
 
+.nav-link{
+    font-weight: 800;
+}
+
 #my-links-tab-pane{
     width: 100%;
     height: 500px;

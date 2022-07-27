@@ -55,14 +55,22 @@ function saveTab() {
 }
 
 function deleteTab(){    
-    let tab = JSON.parse(this.parentNode.getAttributte("tab"));
+    let tab = this.parentNode.getAttribute("tab")
+    tab = JSON.parse(tab)
 
-    console.log(tab)
+    if(confirm(`O SEGUINTE LINK SERÁ DELETADO: \n
+                    Nome: ${tab.name} \n
+                    Link: ${tab.url}\n`)
+                    ){
+                        let index  = tabList.findIndex((item, index, array) => item.url == tab.url);
+                        tabList.splice(index, 1);
+                        chrome.storage.sync.set({"LINKEEP_STORAGE": JSON.stringify(tabList)}, () => console.log("delete successfully") );
+                        updateTabList();
+                    }
+    else{
+        console.log("cancel")
+    }
 
-    let index  = tabList.findIndex((item, index, array) => item.url == tab.url);
-    tabList.splice(index, 1);
-    chrome.storage.sync.set({"LINKEEP_STORAGE": JSON.stringify(tabList)}, () => console.log("delete successfully") );
-    updateTabList();
 }
 
 async function updateTabList(){
@@ -74,8 +82,6 @@ async function updateTabList(){
     }).catch(error => console.log(error));
 
     loadMyTabs();
-    // console.log(document.querySelectorAll(".delete-tab"))
-    // console.log(tabList);
 }
 
 function createHtmlTab(tab){
