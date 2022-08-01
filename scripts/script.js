@@ -7,18 +7,14 @@ var urlICon = "";
 var myTabList = document.getElementById("my-tab-list");
 var myTabs = document.getElementsByClassName("my-tab");
 
-// var bttnDeleteLink; 
 
-// window.addEventListener('DOMContentLoaded', ()=>{
-//     console.log(bttnDeleteLink)
-//     bttnDeleteLink.forEach((bttn)=>{
-//         bttn.addEventListener('click', deleteTab)
-//     })
-// });
-
-bttnSave.addEventListener("click", saveTab);
-
-
+bttnSave.addEventListener("click", ()=>{
+    saveTab({
+        name: inputName.value,
+        url: urlTab,
+        icon: urlICon
+    })
+});
 
 window.onload = () => {
 
@@ -31,14 +27,8 @@ window.onload = () => {
     updateTabList();
 }
 
-function saveTab() {
+function saveTab(tab) {
     let type = ""
-
-    let tab ={
-        name: inputName.value,
-        url: urlTab,
-        icon: urlICon
-    }
 
     if (tabList.every((item, index, array) => item.url != tab.url)) {
         tabList.unshift(tab);
@@ -50,7 +40,7 @@ function saveTab() {
         updateTabList();
     }
 
-    chrome.storage.sync.set({ "LINKEEP_STORAGE": JSON.stringify(tabList) }, () => alert(type + " successfully"));
+    chrome.storage.sync.set({ "LINKEEP_STORAGE": JSON.stringify(tabList) });
 
 }
 
@@ -58,18 +48,10 @@ function deleteTab(){
     let tab = this.parentNode.getAttribute("tab")
     tab = JSON.parse(tab)
 
-    if(confirm(`O SEGUINTE LINK SERÁ DELETADO: \n
-                    Nome: ${tab.name} \n
-                    Link: ${tab.url}\n`)
-                    ){
-                        let index  = tabList.findIndex((item, index, array) => item.url == tab.url);
-                        tabList.splice(index, 1);
-                        chrome.storage.sync.set({"LINKEEP_STORAGE": JSON.stringify(tabList)}, () => console.log("delete successfully") );
-                        updateTabList();
-                    }
-    else{
-        console.log("cancel")
-    }
+    let index  = tabList.findIndex((item, index, array) => item.url == tab.url);
+    tabList.splice(index, 1);
+    chrome.storage.sync.set({"LINKEEP_STORAGE": JSON.stringify(tabList)}, () => console.log("delete successfully") );
+    updateTabList();
 
 }
 
