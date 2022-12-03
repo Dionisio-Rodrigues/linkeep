@@ -27,17 +27,17 @@ public class LinkController {
         return userService.findAll();
     }
 
-    @GetMapping("/getLinkByUser")
-    public List<Link> getLinkByUser(){
-        User usr = new User();
-        usr.setName("Dionisio");
-        usr.setId(1L);
-        usr.setEmail("d.rodriguesmaianeto@gmail.com");
-        return linkService.getAllByUser(usr);
-    }
+//    @GetMapping("/getLinkByUser")
+//    public List<Link> getLinkByUser(){
+//        User usr = new User();
+//        usr.setName("Dionisio");
+//        usr.setId(1L);
+//        usr.setEmail("d.rodriguesmaianeto@gmail.com");
+//        return linkService.getAllByUser(usr);
+//    }
 
     @GetMapping("/getAllLinks")
-    public List<Link> getAllLink(){
+    public Iterable<Link> getAllLink(){
         return linkService.getAll();
     }
 

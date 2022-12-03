@@ -14,13 +14,13 @@ public class LinkService{
     @Autowired
     LinkRepository linkRepository;
 
-    public List<Link> getAll(){
+    public Iterable<Link> getAll(){
         return linkRepository.findAll();
     }
 
-    public List<Link> getAllByUser(User user){
-        return linkRepository.findByUser(user);
-    }
+//    public List<Link> getAllByUser(User user){
+//        return linkRepository.findByUser(user);
+//    }
 
     public void save(Link link){
         linkRepository.save(link);
