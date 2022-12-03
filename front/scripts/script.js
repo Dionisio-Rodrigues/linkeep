@@ -1,12 +1,16 @@
 var tabList = new Array();
 var inputName = document.getElementById("input-name");
 var bttnSave = document.getElementById("bttn-save");
+var bttnTest= document.getElementById("bttn-test");
 var urlTab = "";
 var urlICon = "";
 
 var myTabList = document.getElementById("my-tab-list");
 var myTabs = document.getElementsByClassName("my-tab");
 
+bttnTest.addEventListener("click", ()=>{
+    test()
+})
 
 bttnSave.addEventListener("click", ()=>{
     saveTab({
@@ -134,30 +138,8 @@ function loadMyTabs(){
     })
 }
 
-//     let html = `<ul id="my-tab-list">
-//     `
-//     html += `<li class="my-tab" selected="false" >
-//     <div class="tab-link-content">
-//         <a href="${tab.url}">
-//             <img src="${tab.icon}">
-//             <div>
-//                 <h2>${tab.name}</h2>
-//             </div>
-//         </a>
-//     </div>
-//     <div class="tab-option-content" url-tab="${tab.url}">
-//         <div class="option copy-tab">
-//             <img src="./assets/archives.png">
-//         </div>
-//         <div class="option edit-tab">
-//             <img src="./assets/pen.png">
-//         </div>
-//         <div class="option delete-tab">
-//             <img src="./assets/delete.png">
-//         </div>
-//     </div>
-// </li>
-// `
-//     html += `</ul>`
-//     myTabList.innerHTML = html;
-
+async function test(){
+    response = await fetch('http://localhost:8080/get')
+    request = await fetch('http://localhost:8080/post', {method: 'POST'}) 
+    console.log(response.text())
+}   
