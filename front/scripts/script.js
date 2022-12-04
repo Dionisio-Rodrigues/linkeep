@@ -4,6 +4,7 @@ var bttnSave = document.getElementById("bttn-save");
 var bttnTest= document.getElementById("bttn-test");
 var urlTab = "";
 var urlICon = "";
+var user_info
 
 var myTabList = document.getElementById("my-tab-list");
 var myTabs = document.getElementsByClassName("my-tab");
@@ -16,7 +17,8 @@ bttnSave.addEventListener("click", ()=>{
     saveTab({
         name: inputName.value,
         url: urlTab,
-        icon: urlICon
+        urlIcon: urlICon,
+        userId: user_info
     })
 });
 
@@ -28,12 +30,15 @@ window.onload = () => {
         tabs[0].favIconUrl == "" ? urlICon = "../assets/link_white_blue.png" : urlICon = tabs[0].favIconUrl;
     })
 
+    chrome.identity.getProfileUserInfo({'accountStatus': 'SYNC'},function(info){
+        user_info = info.id
+    })
+
     updateTabList();
 }
 
-function saveTab(tab) {
-    let type = ""
-
+async function saveTab(tab) {
+    type = ""
     if (tabList.every((item, index, array) => item.url != tab.url)) {
         tabList.unshift(tab);
         type = "save";
@@ -44,8 +49,16 @@ function saveTab(tab) {
         updateTabList();
     }
 
-    chrome.storage.sync.set({ "LINKEEP_STORAGE": JSON.stringify(tabList) });
-
+    const init = {
+        method: 'POST',
+        headers: {
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(tab)
+    }
+    console.log(JSON.stringify(tab))
+    const response = await fetch("http://localhost:8080/links/"+type, init)
+    console.log(response.status)
 }
 
 function deleteTab(){    
@@ -137,9 +150,3 @@ function loadMyTabs(){
         myTabList.appendChild(createHtmlTab(tab))
     })
 }
-
-async function test(){
-    response = await fetch('http://localhost:8080/get')
-    request = await fetch('http://localhost:8080/post', {method: 'POST'}) 
-    console.log(response.text())
-}   

@@ -32,7 +32,6 @@ public class Link implements Serializable{
     @Column(name = "icon_url")
     private String iconUrl;
 
-    @ManyToOne
-    @JoinColumn(name ="User.id")
-    private User user;
+    @Column(name = "user_id")
+    private String userId;
 }

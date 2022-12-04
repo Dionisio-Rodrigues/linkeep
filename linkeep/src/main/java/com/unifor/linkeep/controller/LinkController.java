@@ -1,51 +1,42 @@
 package com.unifor.linkeep.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.unifor.linkeep.entity.Link;
-import com.unifor.linkeep.entity.User;
 import com.unifor.linkeep.service.LinkService;
-import com.unifor.linkeep.service.UserService;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 
 @RestController
+@RequestMapping("/links")
 public class LinkController {
     @Autowired
     LinkService linkService;
 
-    @Autowired
-    UserService userService;
-
-    @GetMapping("/getAllUser")
-    public List<User> getAllUser(){
-        return userService.findAll();
+    @GetMapping("/list/{userId}")
+    public List<Link> listLinkByUser(@PathVariable("userId") String userId){
+        return linkService.getAllByUser(userId);
     }
 
-    @GetMapping("/getLinkByUser")
-    public List<Link> getLinkByUser(){
-        User usr = new User();
-        usr.setName("Dionisio");
-        usr.setId(1L);
-        usr.setEmail("d.rodriguesmaianeto@gmail.com");
-        return linkService.getAllByUser(usr);
+    @PostMapping("/save")
+    public void saveLink(@RequestBody Link link) {
+        linkService.save(link);
     }
 
-    @GetMapping("/getAllLinks")
-    public Iterable<Link> getAllLink(){
-        return linkService.getAll();
+    @DeleteMapping("/delete")
+    public void deleteLink(@RequestBody List<Link> links){
+        linkService.delete(links);
     }
 
-    @PostMapping("/test")
-    public void saveUser(){
-        User usr = new User();
-        usr.setName("Farofa13");
-        usr.setEmail("farofa123@gmail.com");
-        userService.save(usr);
+    @PutMapping("/update")
+    public void updateLink(@RequestBody Link link){
+        linkService.update(link);
     }
+
 }
