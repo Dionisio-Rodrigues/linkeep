@@ -30,8 +30,8 @@ public class LinkController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteLink(@RequestBody List<Link> links){
-        linkService.delete(links);
+    public void deleteLink(@RequestBody Link link){
+        linkService.delete(link);
     }
 
     @PutMapping("/update")

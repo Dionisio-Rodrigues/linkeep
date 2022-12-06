@@ -26,8 +26,8 @@ public class LinkService{
         linkRepository.save(link);
     }
 
-    public void delete(List<Link> links){
-        linkRepository.deleteAll(links);
+    public void delete(Link link){
+        linkRepository.delete(link);
     }
 
     public void update(Link link){

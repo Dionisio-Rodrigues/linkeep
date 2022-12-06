@@ -4,7 +4,7 @@ var bttnSave = document.getElementById("bttn-save");
 var bttnTest= document.getElementById("bttn-test");
 var urlTab = "";
 var urlICon = "";
-var user_info
+var user_info = "2361478127648123"
 
 var myTabList = document.getElementById("my-tab-list");
 var myTabs = document.getElementsByClassName("my-tab");
@@ -17,28 +17,30 @@ bttnSave.addEventListener("click", ()=>{
     saveTab({
         name: inputName.value,
         url: urlTab,
-        urlIcon: urlICon,
+        iconUrl: urlICon,
         userId: user_info
     })
 });
 
-window.onload = () => {
+window.onload = onload()
 
+function onload(){
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
         inputName.value = tabs[0].title;
         urlTab = tabs[0].url;
-        tabs[0].favIconUrl == "" ? urlICon = "../assets/link_white_blue.png" : urlICon = tabs[0].favIconUrl;
+        tabs[0].favIconUrl == "" ? urlICon = "link_white_blue.png" : urlICon = tabs[0].favIconUrl;
     })
 
-    chrome.identity.getProfileUserInfo({'accountStatus': 'SYNC'},function(info){
-        user_info = info.id
-    })
+    // chrome.identity.getProfileUserInfo({'accountStatus': 'SYNC'},function(info){
+    //     user_info = info
+    // })
 
     updateTabList();
 }
 
-async function saveTab(tab) {
+function saveTab(tab) {
     type = ""
+    method = "POST"
     if (tabList.every((item, index, array) => item.url != tab.url)) {
         tabList.unshift(tab);
         type = "save";
@@ -46,41 +48,61 @@ async function saveTab(tab) {
     } else {
         tabList[tabList.findIndex((item, index, array) => item.url == tab.url)] = tab;
         type = "update";
+        method= "PUT"
         updateTabList();
     }
 
-    const init = {
-        method: 'POST',
-        headers: {
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify(tab)
-    }
-    console.log(JSON.stringify(tab))
-    const response = await fetch("http://localhost:8080/links/"+type, init)
-    console.log(response.status)
+    console.log((request(method, tab, `links/${type}`)).status)
 }
 
 function deleteTab(){    
     let tab = this.parentNode.getAttribute("tab")
     tab = JSON.parse(tab)
-
+    console.log(tab)
     let index  = tabList.findIndex((item, index, array) => item.url == tab.url);
     tabList.splice(index, 1);
-    chrome.storage.sync.set({"LINKEEP_STORAGE": JSON.stringify(tabList)}, () => console.log("delete successfully") );
-    updateTabList();
 
+    updateTabList();
+    console.log((request("DELETE", tab, `links/delete`)).status)
 }
 
-async function updateTabList(){
 
-    let copyTabList = tabList.slice()
+async function request(method, body, endpoint){
+    const init = {
+        method: method,
+        headers: {
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(body)
+    }
+    console.log(JSON.stringify(body))
+    const response = await fetch(`http://localhost:8080/${endpoint}`, init)
 
-    await chrome.storage.sync.get(["LINKEEP_STORAGE"]).then(listJSON => {
-        listJSON.LINKEEP_STORAGE != undefined ? tabList = JSON.parse(listJSON.LINKEEP_STORAGE).slice(): console.log(undefined);
-    }).catch(error => console.log(error));
+    return response
+}
 
-    loadMyTabs();
+function updateTabList(){
+
+    console.log(user_info)
+
+    fetch(`http://localhost:8080/links/list/${user_info}`)
+    .then(responseData =>{
+        return responseData.json()
+    })
+    .then(jsonData=>{
+        tabList = jsonData.slice()
+        console.log(tabList)
+        loadMyTabs();
+    })
+    .catch(erro=>{
+        console.log(erro)
+    })
+
+
+    // await chrome.storage.sync.get(["LINKEEP_STORAGE"]).then(listJSON => {
+    //     listJSON.LINKEEP_STORAGE != undefined ? tabList = JSON.parse(listJSON.LINKEEP_STORAGE).slice(): console.log(undefined);
+    // }).catch(error => console.log(error));
+
 }
 
 function createHtmlTab(tab){
@@ -97,7 +119,7 @@ function createHtmlTab(tab){
     newDiv.appendChild(a)
 
     let imgIcon = document.createElement("img")
-    imgIcon.src = tab.icon
+    imgIcon.src = tab.iconUrl
     a.appendChild(imgIcon)
 
     let newDiv2 = document.createElement("div")
@@ -150,3 +172,13 @@ function loadMyTabs(){
         myTabList.appendChild(createHtmlTab(tab))
     })
 }
+
+// async function test(){
+//     const response = await fetch(`http://localhost:8080/links/list/${user_info}`)
+//     .then(responseData =>{
+//         responseData.json()
+//     })
+//     .then(jsonData=>{
+//         console.log()
+//     })
+// }
